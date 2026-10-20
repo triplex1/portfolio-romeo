@@ -2,7 +2,7 @@
  * Public site URL. Change this one constant if the domain changes.
  * Canonical, Open Graph, sitemap, robots, and JSON-LD all read it.
  */
-export const SITE_URL = "https://portfolio-romeo.vercel.app";
+export const SITE_URL = "https://romeo-tagalogon.vercel.app";
 
 export const SITE_NAME = "Romeo Tagalogon";
 

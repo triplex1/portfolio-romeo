@@ -35,4 +35,4 @@ Import this GitHub repository. No environment variables or paid services are req
 
 `next.config.ts` sets `output: 'export'`. On the Next.js preset, Vercel runs `next build` and serves the static `out` directory. If the dashboard asks for an output directory, set it to `out`. Leave environment variables empty.
 
-After the first deploy, if the production domain is not `https://portfolio-romeo.vercel.app`, change `SITE_URL` in `lib/site.ts` and redeploy.
+The production domain is `https://romeo-tagalogon.vercel.app`, set as `SITE_URL` in `lib/site.ts`. If that domain changes, update the constant and redeploy.
