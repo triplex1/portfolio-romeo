@@ -34,7 +34,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[22rem] lg:max-w-none">
+        <div className="relative z-10 mx-auto w-full max-w-[22rem] lg:max-w-none">
           <div className="absolute -inset-3 rounded-[2rem] border border-ember/40" aria-hidden="true" />
           <Image
             src="/images/profile.webp"
@@ -42,7 +42,7 @@ export function Hero() {
             width={720}
             height={987}
             priority
-            className="relative aspect-[3/4] w-full rounded-[1.7rem] object-cover object-top"
+            className="relative aspect-[3/4] w-full rounded-[1.7rem] bg-[#120e0c] object-cover object-top"
           />
         </div>
       </div>

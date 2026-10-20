@@ -12,20 +12,22 @@ export function mountHeroScene(canvas: HTMLCanvasElement): () => void {
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 80);
-  camera.position.set(2.4, 0.2, 13);
+  camera.position.set(0.4, 0.15, 15.5);
 
   const group = new THREE.Group();
-  group.position.set(3.1, 0.3, 0);
+  // Sit in the right margin so the ring frames the portrait instead of crossing it.
+  group.position.set(7.35, -0.45, 0);
+  group.scale.setScalar(0.5);
   scene.add(group);
 
-  const count = 520;
+  const count = 420;
   const positions = new Float32Array(count * 3);
   const colors = new Float32Array(count * 3);
   const copper = new THREE.Color("#e07a3d");
   const cream = new THREE.Color("#f4efe8");
 
   for (let index = 0; index < count; index += 1) {
-    const radius = 3.2 + Math.random() * 5.2;
+    const radius = 1.7 + Math.random() * 2.4;
     const theta = Math.random() * Math.PI * 2;
     const phi = Math.acos(2 * Math.random() - 1);
     positions[index * 3] = radius * Math.sin(phi) * Math.cos(theta);
@@ -51,7 +53,7 @@ export function mountHeroScene(canvas: HTMLCanvasElement): () => void {
   });
   group.add(new THREE.Points(geometry, material));
 
-  const icoGeometry = new THREE.IcosahedronGeometry(2.7, 0);
+  const icoGeometry = new THREE.IcosahedronGeometry(2.15, 0);
   const icoMaterial = new THREE.MeshBasicMaterial({
     color: 0xe07a3d,
     transparent: true,
@@ -70,7 +72,7 @@ export function mountHeroScene(canvas: HTMLCanvasElement): () => void {
     transparent: true,
     opacity: 0.85,
   });
-  const torus = new THREE.Mesh(new THREE.TorusGeometry(4.1, 0.028, 16, 80), torusMaterial);
+  const torus = new THREE.Mesh(new THREE.TorusGeometry(3.15, 0.022, 12, 72), torusMaterial);
   torus.rotation.x = Math.PI / 2.6;
   group.add(torus);
 
