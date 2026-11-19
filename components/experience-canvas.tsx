@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { mountHeroScene } from "@/lib/hero-scene";
+import { mountScrollScene } from "@/lib/scroll-scene";
 
-export default function HeroCanvas() {
+export default function ExperienceCanvas({ animate }: { animate: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -11,12 +11,12 @@ export default function HeroCanvas() {
     if (!canvas) return;
     let dispose = () => {};
     try {
-      dispose = mountHeroScene(canvas);
+      dispose = mountScrollScene(canvas, { animate });
     } catch {
       canvas.remove();
     }
     return () => dispose();
-  }, []);
+  }, [animate]);
 
-  return <canvas ref={canvasRef} className="absolute inset-0 h-full w-full mix-blend-screen" />;
+  return <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />;
 }

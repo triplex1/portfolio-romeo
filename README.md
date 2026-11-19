@@ -4,6 +4,8 @@ Personal site for Romeo Tagalogon (Jr), a web developer and AI engineer who buil
 
 The public URL is a single constant, `SITE_URL`, in [`lib/site.ts`](lib/site.ts). Canonical, Open Graph, sitemap, robots, and JSON-LD all read it.
 
+The page is a normal document. On a wide, capable screen a fixed Three.js scene reads scroll position and moves the camera along a curve behind the sections. Phones, low-power devices, save-data, and `prefers-reduced-motion` keep the same HTML on the static backdrop. The portrait sits on an opaque plate so the orbital lines stay beside the photo.
+
 ## Run locally
 
 Requires Node.js 22+.

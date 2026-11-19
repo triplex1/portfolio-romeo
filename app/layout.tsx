@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, Outfit } from "next/font/google";
+import { Outfit, Syne } from "next/font/google";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -9,10 +9,10 @@ const outfit = Outfit({
   display: "swap",
 });
 
-const instrument = Instrument_Serif({
+const syne = Syne({
   subsets: ["latin"],
-  weight: "400",
-  variable: "--font-instrument",
+  weight: ["500", "600", "700", "800"],
+  variable: "--font-syne",
   display: "swap",
 });
 
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#100e0c",
+  themeColor: "#070b14",
   width: "device-width",
   initialScale: 1,
 };
@@ -67,12 +67,12 @@ const motionScript = `try{if(!window.matchMedia("(prefers-reduced-motion: reduce
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${outfit.variable} ${instrument.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${outfit.variable} ${syne.variable}`} suppressHydrationWarning>
       <body>
         <script dangerouslySetInnerHTML={{ __html: motionScript }} />
         <a
           href="#content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[80] focus:rounded-full focus:bg-paper focus:px-4 focus:py-3 focus:text-ink"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[80] focus:rounded-full focus:bg-paper focus:px-4 focus:py-3 focus:text-void"
         >
           Skip to content
         </a>

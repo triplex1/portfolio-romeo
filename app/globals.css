@@ -2,19 +2,21 @@
 
 @theme {
   --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-instrument), ui-serif, Georgia, "Times New Roman", serif;
-  --color-ink: #100e0c;
-  --color-ink-2: #1b1714;
-  --color-paper: #f4efe8;
-  --color-muted: #d4cbc2;
-  --color-line: rgba(244, 239, 232, 0.14);
-  --color-copper: #e07a3d;
-  --color-ember: #ffb15a;
+  --font-display: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+  --color-void: #070b14;
+  --color-void-2: #10192c;
+  --color-paper: #e8eef8;
+  --color-muted: #b7c5da;
+  --color-cyan: #7ad7ff;
+  --color-violet: #c4b6ff;
+  --color-line: rgba(186, 214, 255, 0.16);
 }
 
 html {
   scroll-padding-top: 5.5rem;
-  background: #100e0c;
+  background: #070b14;
+  color-scheme: dark;
+  scrollbar-color: #245066 #070b14;
 }
 
 html.motion {
@@ -23,52 +25,179 @@ html.motion {
 
 body {
   margin: 0;
-  background: #100e0c;
-  color: #f4efe8;
+  background: #070b14;
+  color: #e8eef8;
   font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
   overflow-x: clip;
 }
 
 ::selection {
-  background: #e07a3d;
-  color: #1a0e08;
+  background: #7ad7ff;
+  color: #071018;
 }
 
-.hero-fallback {
+.stage-fallback {
   background:
-    radial-gradient(920px 520px at 82% 0%, rgba(224, 122, 61, 0.45), transparent 60%),
-    radial-gradient(680px 460px at 0% 100%, rgba(92, 48, 22, 0.72), transparent 68%),
-    linear-gradient(180deg, #171310 0%, #100e0c 70%);
+    radial-gradient(920px 540px at 78% 16%, rgba(122, 215, 255, 0.16), transparent 58%),
+    radial-gradient(720px 480px at 8% 86%, rgba(196, 182, 255, 0.14), transparent 62%),
+    radial-gradient(480px 320px at 48% 42%, rgba(36, 78, 130, 0.18), transparent 70%),
+    linear-gradient(180deg, #0b1424 0%, #070b14 48%, #080e1a 100%);
 }
 
-html.motion .reveal {
-  opacity: 0;
-  transform: translateY(22px);
-  transition:
-    opacity 700ms ease,
-    transform 700ms ease;
+html[data-scene="full"] body::before,
+html[data-scene="still"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(7, 11, 20, 0.78) 0%,
+    rgba(7, 11, 20, 0.55) 34%,
+    rgba(7, 11, 20, 0.18) 58%,
+    transparent 78%
+  );
 }
 
-html.motion .reveal.is-in {
-  opacity: 1;
-  transform: none;
+.stage-fallback::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(168, 206, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(168, 206, 255, 0.045) 1px, transparent 1px);
+  background-size: 76px 76px;
+  mask-image: radial-gradient(ellipse at 72% 28%, #000 0%, transparent 70%);
+}
+
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  width: 100%;
+  height: 2px;
+  transform: scaleX(var(--scroll, 0));
+  transform-origin: left center;
+  background: linear-gradient(90deg, #7ad7ff, #c4b6ff);
+  pointer-events: none;
+}
+
+.glass {
+  background: rgba(8, 14, 26, 0.82);
+  border: 1px solid rgba(186, 214, 255, 0.16);
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+html[data-scene="full"] .hero-copy::before,
+html[data-scene="still"] .hero-copy::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -2.5rem -18% -2.5rem -12vw;
+  background: linear-gradient(90deg, rgba(7, 11, 20, 0.94) 0%, rgba(7, 11, 20, 0.86) 58%, rgba(7, 11, 20, 0.35) 82%, transparent 100%);
+  pointer-events: none;
+}
+
+.portrait-orbit-wrap {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .portrait-orbit-wrap {
+    display: block;
+    z-index: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    aspect-ratio: 1;
+    width: 176%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+}
+
+.portrait-orbit {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+}
+
+.portrait-orbit-a {
+  border-top-color: rgba(122, 215, 255, 0.9);
+  border-right-color: rgba(122, 215, 255, 0.28);
+}
+
+.portrait-orbit-b {
+  inset: 7%;
+  border-bottom-color: rgba(196, 182, 255, 0.85);
+  border-left-color: rgba(196, 182, 255, 0.25);
+}
+
+html.motion .portrait-orbit-a {
+  animation: spin 26s linear infinite;
+}
+
+html.motion .portrait-orbit-b {
+  animation: spin 38s linear infinite reverse;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.marquee {
+  overflow: hidden;
 }
 
 .marquee-track {
   display: flex;
-  width: max-content;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .skill-row {
   display: flex;
-  align-items: center;
-  gap: 2.75rem;
-  padding-right: 2.75rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
-html.motion .marquee-track {
-  animation: marquee 48s linear infinite;
+.marquee-copy {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  html.motion .marquee {
+    mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  }
+
+  html.motion .marquee-track {
+    flex-wrap: nowrap;
+    width: max-content;
+    gap: 0;
+    animation: marquee 52s linear infinite;
+  }
+
+  html.motion .skill-row {
+    flex-wrap: nowrap;
+    gap: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  html.motion .marquee-copy {
+    display: flex;
+  }
+
+  html.motion .marquee:hover .marquee-track,
+  html.motion .marquee:focus-within .marquee-track {
+    animation-play-state: paused;
+  }
 }
 
 @keyframes marquee {
@@ -80,6 +209,19 @@ html.motion .marquee-track {
   }
 }
 
+html.motion .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 700ms ease,
+    transform 700ms ease;
+}
+
+html.motion .reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
 .tilt-card {
   transform-style: preserve-3d;
   transition:
@@ -88,17 +230,52 @@ html.motion .marquee-track {
     box-shadow 300ms ease;
 }
 
+@supports (animation-timeline: view()) {
+  html.motion .tilt-card {
+    animation: card-in linear both;
+    animation-timeline: view();
+    animation-range: entry 8% cover 36%;
+  }
+}
+
+@keyframes card-in {
+  from {
+    transform: perspective(1000px) rotateX(9deg) translateY(28px);
+  }
+  to {
+    transform: perspective(1000px) rotateX(0deg) translateY(0);
+  }
+}
+
 .tilt-card.is-tilting {
   background-image: radial-gradient(
-    480px circle at var(--mx, 50%) var(--my, 50%),
-    rgba(255, 177, 90, 0.22),
+    420px circle at var(--mx, 50%) var(--my, 40%),
+    rgba(122, 215, 255, 0.16),
     transparent 46%
   );
-  box-shadow: 0 28px 50px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.45);
   transition:
-    transform 60ms linear,
+    transform 70ms linear,
     border-color 200ms ease,
     box-shadow 200ms ease;
+}
+
+html.motion .site-card {
+  transition:
+    transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    border-color 300ms ease;
+}
+
+html.motion .site-card img {
+  transition: transform 700ms ease;
+}
+
+html.motion .site-card:hover {
+  transform: perspective(900px) translateY(-8px) rotateX(4deg);
+}
+
+html.motion .site-card:hover img {
+  transform: scale(1.045);
 }
 
 .btn {
@@ -116,22 +293,50 @@ html.motion .marquee-track {
 }
 
 .btn-primary {
-  background: #f4efe8;
-  color: #1a120c;
+  background: #e7f6ff;
+  color: #071018;
 }
 
 .btn-primary:hover {
-  background: #fff;
+  background: #ffffff;
 }
 
 .btn-ghost {
-  border: 1px solid rgba(244, 239, 232, 0.28);
-  color: #f4efe8;
+  border: 1px solid rgba(122, 215, 255, 0.4);
+  color: #e8eef8;
 }
 
 .btn-ghost:hover {
-  border-color: #ffb15a;
-  color: #ffb15a;
+  border-color: #7ad7ff;
+  color: #7ad7ff;
+}
+
+.chapter-rail a {
+  position: relative;
+  display: grid;
+  height: 2.75rem;
+  width: 2.75rem;
+  place-items: center;
+}
+
+.chapter-rail a span.label {
+  position: absolute;
+  right: 2.4rem;
+  white-space: nowrap;
+  border-radius: 999px;
+  border: 1px solid rgba(186, 214, 255, 0.16);
+  background: rgba(8, 14, 26, 0.92);
+  padding: 0.35rem 0.7rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e8eef8;
+  opacity: 0;
+}
+
+.chapter-rail a:hover span.label,
+.chapter-rail a:focus-visible span.label {
+  opacity: 1;
 }
 
 summary::-webkit-details-marker {
@@ -147,7 +352,11 @@ summary::-webkit-details-marker {
   html.motion .reveal.is-in,
   .tilt-card,
   .tilt-card.is-tilting,
-  .marquee-track {
+  .marquee-track,
+  .portrait-orbit-a,
+  .portrait-orbit-b,
+  .site-card,
+  .site-card img {
     opacity: 1;
     transform: none;
     animation: none;
@@ -156,6 +365,6 @@ summary::-webkit-details-marker {
 }
 
 :focus-visible {
-  outline: 2px solid #ffb15a;
+  outline: 2px solid #7ad7ff;
   outline-offset: 3px;
 }
